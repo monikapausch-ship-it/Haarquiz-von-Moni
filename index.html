@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light only">
+  <meta name="theme-color" content="#ffffff">
+  <title>Haar-Quiz mit Monika</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #fcf9fd;
+      color: #3e2a4d;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      line-height: 1.5;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #6a0dad, #b784f7);
+      color: white;
+      padding: 20px 14px 34px;
+      border-radius: 0 0 28px 28px;
+      overflow: hidden;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .header-image {
+      width: 100%;
+      margin: 0 0 18px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.10);
+    }
+
+    .header-image img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border: 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.08);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 34px;
+      line-height: 1.15;
+    }
+
+    .header p {
+      margin: 0;
+      max-width: 760px;
+      font-size: 16px;
+      white-space: pre-line;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 22px 16px 40px;
+    }
+
+    .info-box {
+      background: #fff8fb;
+      border: 1px solid #ead9ea;
+      border-radius: 24px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+      color: #533760;
+      box-shadow: 0 8px 18px rgba(106, 13, 173, 0.05);
+    }
+
+    .main-card {
+      background: #f8f4fa;
+      border: 1px solid #e9dff0;
+      border-radius: 28px;
+      padding: 26px 18px 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 24px rgba(106, 13, 173, 0.06);
+    }
+
+    .main-card h2 {
+      margin: 0 0 6px;
+      color: #5c2f77;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    .subline {
+      margin: 0 0 18px;
+      color: #8d7c9b;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .section-title {
+      margin: 24px 0 12px;
+      color: #6b427f;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .hint {
+      margin: 0 0 14px;
+      color: #7e6c89;
+      font-size: 14px;
+    }
+
+    .options {
+      display: block;
+    }
+
+    .option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      background: #fdfbfc;
+      border: 1px solid #e8dce7;
+      border-radius: 22px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      min-height: 72px;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background: #faf6fb;
+      border-color: #d9c4e9;
+    }
+
+    .option span {
+      font-size: 17px;
+      color: #4b2d5d;
+      font-weight: 600;
+    }
+
+    .option input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #ccb8ca;
+      border-radius: 50%;
+      background: white;
+      flex: 0 0 24px;
+      position: relative;
+      margin: 0;
+    }
+
+    .option input[type="checkbox"]:checked {
+      border-color: #6a0dad;
+      background: #6a0dad;
+    }
+
+    .option input[type="checkbox"]:checked::after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .name-input {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid #dccce7;
+      background: #ffffff;
+      font-size: 16px;
+      color: #3e2a4d;
+      outline: none;
+    }
+
+    .name-input:focus {
+      border-color: #a975d8;
+      box-shadow: 0 0 0 3px rgba(169, 117, 216, 0.12);
+    }
+
+    .privacy-card {
+      background: #f8f4fa;
+      border: 1px solid #e9dff0;
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 18px rgba(106, 13, 173, 0.05);
+    }
+
+    .privacy-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: #4f375e;
+      font-size: 14px;
+    }
+
+    .privacy-row input[type="checkbox"] {
+      margin-top: 2px;
+      transform: scale(1.15);
+      accent-color: #6a0dad;
+      flex: 0 0 auto;
+    }
+
+    .submit-wrap {
+      background: #f8f4fa;
+      border: 1px solid #e9dff0;
+      border-radius: 28px;
+      padding: 18px;
+      box-shadow: 0 10px 22px rgba(106, 13, 173, 0.06);
+    }
+
+    .submit-btn {
+      width: 100%;
+      border: none;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #6d3d85, #4b1f67);
+      color: white;
+      font-size: 19px;
+      font-weight: bold;
+      padding: 24px 18px;
+      cursor: pointer;
+      line-height: 1.15;
+    }
+
+    .submit-btn:hover {
+      filter: brightness(1.03);
+    }
+
+    .small-note {
+      text-align: center;
+      color: #9a8ba6;
+      font-size: 13px;
+      margin-top: 14px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: #8d7c9b;
+      margin-top: 18px;
+    }
+
+    a {
+      color: #6a0dad;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        padding: 16px 12px 28px;
+      }
+
+      h1 {
+        font-size: 29px;
+      }
+
+      .main-card {
+        padding: 22px 14px 18px;
+      }
+
+      .main-card h2 {
+        font-size: 24px;
+      }
+
+      .option {
+        min-height: 68px;
+        padding: 16px 16px;
+      }
+
+      .option span {
+        font-size: 16px;
+      }
+
+      .submit-btn {
+        font-size: 18px;
+        padding: 22px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="wrap">
+
+      <div class="header-image">
+        <img src="https://i.postimg.cc/rF3jR3Jd/IMG-20260419-WA0013.jpg" alt="Gepflegte Haare">
+      </div>
+
+      <div class="badge">Dein Haarquiz mit Monika</div>
+      <h1>Schön, dass du da bist!</h1>
+      <p>Das Haarquiz hilft uns beide, die perfekten Produkte für deinen Haartyp zu finden.
+
+In nur wenigen Minuten beantwortest du Fragen zu deiner Kopfhaut und deinen Haaren und ich erstelle dir eine individuelle MONAT Produktempfehlung passend für deine Kopfhaut und deine Haare.
+
+Das Haarquiz ist kostenlos und unverbindlich!
+
+Starte jetzt und entdecke, welche MONAT Haarpflege zu dir passt.
+Beantworte kurz die Fragen und markiere alles, was auf deine Haare und deine Kopfhaut zutrifft.
+Ich schaue mir deine Angaben an und melde mich anschließend persönlich bei dir mit meiner Empfehlung.</p>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="info-box">
+      <strong>Wichtig:</strong> Du kannst mir gerne zusätzlich ein aktuelles Foto deiner Haare direkt per WhatsApp senden, damit ich dein Haar noch besser einschätzen kann.
+    </div>
+
+    <form id="quizForm">
+
+      <div class="main-card">
+        <h2>Haar-Eigenschaften</h2>
+        <p class="subline">Mehrfachauswahl möglich</p>
+
+        <div class="section-title">Haardicke</div>
+        <div class="options">
+          <label class="option"><span>Dünnes Haar</span><input type="checkbox" value="Haardicke: Dünnes Haar"></label>
+          <label class="option"><span>Dickes Haar</span><input type="checkbox" value="Haardicke: Dickes Haar"></label>
+          <label class="option"><span>Normales Haar</span><input type="checkbox" value="Haardicke: Normales Haar"></label>
+        </div>
+
+        <div class="section-title">Haarmenge</div>
+        <div class="options">
+          <label class="option"><span>Wenig Haare</span><input type="checkbox" value="Haarmenge: Wenig Haare"></label>
+          <label class="option"><span>Viele Haare</span><input type="checkbox" value="Haarmenge: Viele Haare"></label>
+          <label class="option"><span>Normale Haarmenge</span><input type="checkbox" value="Haarmenge: Normale Haarmenge"></label>
+        </div>
+
+        <div class="section-title">Haarlänge</div>
+        <div class="options">
+          <label class="option"><span>Kurzes Haar</span><input type="checkbox" value="Haarlänge: Kurzes Haar"></label>
+          <label class="option"><span>Langes Haar</span><input type="checkbox" value="Haarlänge: Langes Haar"></label>
+          <label class="option"><span>Mittellang</span><input type="checkbox" value="Haarlänge: Mittellang"></label>
+        </div>
+      </div>
+
+      <div class="main-card">
+        <h2>Deine Kopfhaut</h2>
+        <p class="subline">Wie verhält sich deine Kopfhaut?</p>
+        <div class="options">
+          <label class="option"><span>Fettige Kopfhaut</span><input type="checkbox" value="Kopfhaut: Fettige Kopfhaut"></label>
+          <label class="option"><span>Juckende Kopfhaut</span><input type="checkbox" value="Kopfhaut: Juckende Kopfhaut"></label>
+          <label class="option"><span>Empfindliche Kopfhaut</span><input type="checkbox" value="Kopfhaut: Empfindliche Kopfhaut"></label>
+          <label class="option"><span>Trockene Kopfhaut</span><input type="checkbox" value="Kopfhaut: Trockene Kopfhaut"></label>
+          <label class="option"><span>Schuppen</span><input type="checkbox" value="Kopfhaut: Schuppen"></label>
+        </div>
+      </div>
+
+      <div class="main-card">
+        <h2>Struktur & Behandlung</h2>
+
+        <div class="section-title">Natürliche Struktur deiner Haare</div>
+        <div class="options">
+          <label class="option"><span>Naturkrause</span><input type="checkbox" value="Struktur: Naturkrause"></label>
+          <label class="option"><span>Wellen</span><input type="checkbox" value="Struktur: Wellen"></label>
+          <label class="option"><span>Undefinierte Locken</span><input type="checkbox" value="Struktur: Undefinierte Locken"></label>
+        </div>
+
+        <div class="section-title">Chemische / thermische Behandlung</div>
+        <div class="options">
+          <label class="option"><span>Gefärbt</span><input type="checkbox" value="Behandlung: Gefärbt"></label>
+          <label class="option"><span>Blondiert</span><input type="checkbox" value="Behandlung: Blondiert"></label>
+          <label class="option"><span>Dauerwelle</span><input type="checkbox" value="Behandlung: Dauerwelle"></label>
+          <label class="option"><span>Hitzestyling</span><input type="checkbox" value="Behandlung: Hitzestyling"></label>
+          <label class="option"><span>Föhn</span><input type="checkbox" value="Behandlung: Föhn"></label>
+          <label class="option"><span>Lufttrocknen</span><input type="checkbox" value="Behandlung: Lufttrocknen"></label>
+        </div>
+      </div>
+
+      <div class="main-card">
+        <h2>Deine Haarprobleme</h2>
+        <p class="subline">Was stört dich am meisten?</p>
+        <div class="options">
+          <label class="option"><span>Haarausfall</span><input type="checkbox" value="Haarproblem: Haarausfall"></label>
+          <label class="option"><span>Geschädigte Haare</span><input type="checkbox" value="Haarproblem: Geschädigte Haare"></label>
+          <label class="option"><span>Platt / kein Volumen</span><input type="checkbox" value="Haarproblem: Platt / kein Volumen"></label>
+          <label class="option"><span>Frizz / abstehende Haare</span><input type="checkbox" value="Haarproblem: Frizz / abstehende Haare"></label>
+          <label class="option"><span>Spliss</span><input type="checkbox" value="Haarproblem: Spliss"></label>
+          <label class="option"><span>Trocken / spröde</span><input type="checkbox" value="Haarproblem: Trocken / spröde"></label>
+          <label class="option"><span>Haar wächst nicht</span><input type="checkbox" value="Haarproblem: Haar wächst nicht"></label>
+        </div>
+      </div>
+
+      <div class="main-card">
+        <h2>Deine Wünsche</h2>
+        <p class="subline">Was wünschst du dir für dein Haar?</p>
+        <div class="options">
+          <label class="option"><span>Weniger Haarausfall</span><input type="checkbox" value="Wunsch: Weniger Haarausfall"></label>
+          <label class="option"><span>Mehr Volumen</span><input type="checkbox" value="Wunsch: Mehr Volumen"></label>
+          <label class="option"><span>Gesündere Haare / Reparatur</span><input type="checkbox" value="Wunsch: Gesündere Haare / Reparatur"></label>
+          <label class="option"><span>Schuppen loswerden</span><input type="checkbox" value="Wunsch: Schuppen loswerden"></label>
+          <label class="option"><span>Kopfhaut verbessern</span><input type="checkbox" value="Wunsch: Kopfhaut verbessern"></label>
+          <label class="option"><span>Weniger fettige Haare</span><input type="checkbox" value="Wunsch: Weniger fettige Haare"></label>
+          <label class="option"><span>Schönere, definierte Locken</span><input type="checkbox" value="Wunsch: Schönere, definierte Locken"></label>
+          <label class="option"><span>Glattere Haare / weniger Frizz</span><input type="checkbox" value="Wunsch: Glattere Haare / weniger Frizz"></label>
+          <label class="option"><span>Glänzende, geschmeidige Haare</span><input type="checkbox" value="Wunsch: Glänzende, geschmeidige Haare"></label>
+        </div>
+      </div>
+
+      <div class="main-card">
+        <h2>Zusatz</h2>
+        <p class="subline">Optional</p>
+        <div class="options">
+          <label class="option"><span>Ich möchte die Produkte ausschließlich für mich nutzen.</span><input type="checkbox" value="Zusatz: Ich möchte die Produkte ausschließlich für mich nutzen"></label>
+          <label class="option"><span>Ich bin auch daran interessiert, damit Geld zu verdienen.</span><input type="checkbox" value="Zusatz: Ich bin auch daran interessiert, damit Geld zu verdienen"></label>
+        </div>
+      </div>
+
+      <div class="main-card">
+        <h2>Wie darf ich dich ansprechen?</h2>
+        <p class="subline">Optional</p>
+        <p class="hint">Damit ich dich in WhatsApp persönlich ansprechen kann, trage hier gerne deinen Vornamen ein. Dankesehr.</p>
+        <input class="name-input" type="text" id="vorname" name="vorname" placeholder="Dein Vorname">
+      </div>
+
+      <div class="privacy-card">
+        <div class="privacy-row">
+          <input type="checkbox" id="privacy" required>
+          <div>
+            Ich stimme zu, dass meine Angaben zur Kontaktaufnahme und Beratung gespeichert und verarbeitet werden.
+            Weitere Informationen finde ich in der
+            <a href="https://wonderl.ink/@monika-mueller-1webdm" target="_blank">Datenschutzerklärung</a>.
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-wrap">
+        <button class="submit-btn" type="submit">Antworten per WhatsApp senden</button>
+        <div class="small-note">Deine Angaben werden direkt an WhatsApp übergeben.</div>
+      </div>
+
+    </form>
+
+    <div class="footer">
+      Kontakt für die Übermittlung: Monika · +43 664 4014138<br><br>
+      <a href="https://wonderl.ink/@monika-mueller-1webdm" target="_blank">Datenschutz</a>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById("quizForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const privacy = document.getElementById("privacy");
+      if (!privacy.checked) {
+        alert("Bitte stimme der Datenschutzerklärung zu.");
+        return;
+      }
+
+      const answers = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+        .filter(el => el.id !== "privacy")
+        .map(el => "• " + el.value)
+        .join("\n");
+
+      const vorname = document.getElementById("vorname").value.trim();
+
+      const message =
+`HAAR-QUIZ mit Monika 💜
+
+${vorname ? "Vorname: " + vorname + "\n\n" : ""}Ausgewählte Antworten:
+${answers || "Keine Auswahl"}
+
+Du kannst mir zusätzlich gerne ein aktuelles Foto deiner Haare senden.`;
+
+      const phone = "436644014138";
+      const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+
+      window.open(url, "_blank");
+    });
+  </script>
+
+</body>
+</html>
+ 
